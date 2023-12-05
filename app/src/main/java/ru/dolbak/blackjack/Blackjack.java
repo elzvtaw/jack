@@ -1,12 +1,38 @@
 package ru.dolbak.blackjack;
 
+import static java.lang.Math.abs;
+
+import java.util.Random;
+
 class Deck{
     int pointer = 0;
     Card[] cards = new Card[52];
+    Card[] cards2 = new Card[52];
     //TODO: конструктор, в котором перемешиваются карты
     // создать карту - вызвать new Card(Rate, Suit)
 
     //TODO:" функция take() - взять карту из колоды
+    Suit[] suits = {Suit.Hearts, Suit.Clubs, Suit.Spades, Suit.Diamonds};
+    Rate[] rates = {Rate.TWO, Rate.THREE, Rate.FOUR, Rate.FIVE, Rate.SIX, Rate.SEVEN, Rate.EIGHT, Rate.NINE, Rate.TEN, Rate.JACK, Rate.QUEEN, Rate.KING, Rate.ACE};
+
+    public Deck(){
+        for (int i=0; i<4; i++){
+            for (int j=0; j<13; j++){
+                cards[i*13+j]= new Card(rates[j] , suits[i]);
+            }
+        }
+        Random rnd = new Random();
+        for(int i=0; i< cards.length; i++){
+            int randomIndex= abs(rnd.nextInt()) % (cards.length - i);
+            cards2[i]=cards[randomIndex];
+            cards[randomIndex]= cards[cards.length-i-1];
+        }
+    }
+    public Card take(){
+        pointer++;
+        return cards2[pointer-1];
+    }
+
 }
 
 enum Suit{

@@ -21,22 +21,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        putCard(0, new Card(Rate.ACE, Suit.Hearts));
-        putCard(1, new Card(Rate.TWO, Suit.Spades));
-        putCard(2, new Card(Rate.THREE, Suit.Diamonds));
-        putCard(3, new Card(Rate.FOUR, Suit.Clubs));
-        putCard(4, new Card(Rate.FIVE, Suit.Clubs));
-        putCard(5, new Card(Rate.SIX, Suit.Diamonds));
-        putCard(6, new Card(Rate.SEVEN, Suit.Spades));
-        putCard(7, new Card(Rate.EIGHT, Suit.Hearts));
-        putCard(8, new Card(Rate.NINE, Suit.Hearts));
-        putCard(9, new Card(Rate.TEN, Suit.Hearts));
+        Deck deck = new Deck();
+        Card card1 = deck.take();
+        Card card2 = deck.take();
+        putCard(5, card1);
+        putCard(6, card2);
 
-
-        //TODO: используйте putCard(номер слота, карта), чтобы отрисовать карту на столе
-
-
-        Card myCard = new Card(Rate.QUEEN, Suit.Hearts);
-        int p = myCard.rate.getPoints(); //таким образом можно получить "очки" карты
+        int dealerPoints =0;
+        int dealerCards = 0;
+        while (dealerPoints <16 && dealerCards <5 ){
+            Card card = deck.take();
+            putCard(dealerCards, card);
+            dealerCards++;
+            dealerPoints += card.rate.getPoints();
+        }
     }
 }
